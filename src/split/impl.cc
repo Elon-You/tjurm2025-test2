@@ -1,4 +1,5 @@
 #include "impls.h"
+#include <opencv2/opencv.hpp>
 
 std::vector<cv::Mat> split(const cv::Mat& rgb_image) {
     /**
@@ -18,6 +19,6 @@ std::vector<cv::Mat> split(const cv::Mat& rgb_image) {
     std::vector<cv::Mat> result;
 
     // TODO: 实现代码
-
+    cv::split(rgb_image, result);
     return result;
 }

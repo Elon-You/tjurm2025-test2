@@ -13,5 +13,23 @@ float compute_area_ratio(const std::vector<cv::Point>& contour) {
      * 通过条件:
      * 运行测试点，通过即可。
      */
+
+     #include <opencv2/opencv.hpp>
+
+float compute_area_ratio(const std::vector<cv::Point>& contour) {
+
+    double contour_area = cv::contourArea(contour);
+    
+    cv::Rect bounding_rect = cv::boundingRect(contour);
+    
+    double rect_area = bounding_rect.width * bounding_rect.height;
+    
+    if (rect_area == 0) {
+        return 0.f;
+    }
+    
+    return static_cast<float>(contour_area / rect_area);
+}
+
     return 0.f;
 }

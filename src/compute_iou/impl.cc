@@ -1,7 +1,9 @@
 #include "impls.h"
 #include <algorithm>
+#include <opencv2/opencv.hpp>
 
 float compute_iou(const cv::Rect& a, const cv::Rect& b) {
+
     /**
      * 要求：
      *      有一个重要的指标叫做“交并比”，简称“IOU”，可以用于衡量
@@ -17,5 +19,19 @@ float compute_iou(const cv::Rect& a, const cv::Rect& b) {
      * 运行测试点，显示通过就行，不通过会告诉你哪一组矩形错了。
     */
     // IMPLEMENT YOUR CODE HERE
-    return 0.f;
+    int x_left = std::max(a.x, b.x);
+    int y_top = std::max(a.y, b.y);
+    int x_right = std::min(a.x + a.width, b.x + b.width);
+    int y_bottom = std::min(a.y + a.height, b.y + b.height);
+
+    if (x_right <= x_left || y_bottom <= y_top)
+        return 0.0f;
+
+    int intersection_area = (x_right - x_left) * (y_bottom - y_top);
+
+    int area_a = a.width * a.height;
+    int area_b = b.width * b.height;
+
+    float iou = static_cast<float>(intersection_area) / (area_a + area_b - intersection_area);
+    return iou;
 }
